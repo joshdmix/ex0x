@@ -1,0 +1,32 @@
+<div class="flex flex-row">
+  <div class="content-evenly flex flex-row">
+    <div class="p-4">BPM</div>
+    <div class="p-4"><%= @bpm %></div>
+    <button class="p-4 bg-green-400 border-2" phx-click="inc_bpm">+</button>
+    <button class="p-4 bg-green-400 border-2" phx-click="dec_bpm">-</button>
+  </div>
+
+
+  <div>
+    <div>Steps</div>
+    <div>
+      <%= for opt <- @step_opts do %>
+        <%= if opt == @selected_step_opt do %>
+          <button class="bg-green-400"><%= opt %></button>
+        <% else %>
+          <button class="bg-orange-400" phx-click="select_step_opt" phx-value-opt="<%= opt %>"><%= opt %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-4 gap-1 leading-8">
+  <%= for id <- @steps do %>
+    <%= if id in @selected_steps do %>
+      <div phx-click="subt_step" phx-value-id="<%= id %>" class=bg-green-400 hover:bg-purple-700 hover:border-green-400 border-2 border-black-600 focus:ring-2 w-8"><%=id %></div>
+    <% else %>
+      <div phx-click="add_step" phx-value-id="<%= id %>" class=bg-black hover:bg-purple-700 hover:border-green-400 border-2 border-black-600 focus:ring-2 w-8"><%=id %></div>
+      <% end %>
+  <% end %>
+</div>
