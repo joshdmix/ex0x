@@ -1,11 +1,13 @@
 <%# <div><%= inspect(@timer_ref) %1></div> %>
 <%# <div><%= @active_step %1></div> %>
-<div class="box mt-5">
-  <div class="is-flex is-justify-content-center">
-    <div class="is-size-5 is-column-one-quarter m-2">BPM</div>
-    <div class="is-size-5 is-column-one-quarter m-2"><%= @bpm %></div>
-    <button class="button is-column-one-quarter m-2" phx-click="inc_bpm">+</button>
-    <button class="button is-column-one-quarter m-2" phx-click="dec_bpm">-</button>
+<div class="box mt-5 has-background-danger-light">
+  <div class="is-flex is-justify-content-space-around is-align-items-center">
+    <div class="box">BPM</div>
+    <div class="box"><%= @bpm %></div>
+    <div>
+      <button class="button" phx-click="inc_bpm">+</button>
+      <button class="button" phx-click="dec_bpm">-</button>
+    </div>
   </div>
 
   <div class="is-flex is-justify-content-center">
