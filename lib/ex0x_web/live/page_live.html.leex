@@ -1,32 +1,51 @@
-<div class="flex flex-row">
-  <div class="content-evenly flex flex-row">
-    <div class="p-4">BPM</div>
-    <div class="p-4"><%= @bpm %></div>
-    <button class="p-4 bg-green-400 border-2" phx-click="inc_bpm">+</button>
-    <button class="p-4 bg-green-400 border-2" phx-click="dec_bpm">-</button>
+<%# <div><%= inspect(@timer_ref) %1></div> %>
+<%# <div><%= @active_step %1></div> %>
+<div class="box mt-5">
+  <div class="is-flex is-justify-content-center">
+    <div class="is-size-5 is-column-one-quarter m-2">BPM</div>
+    <div class="is-size-5 is-column-one-quarter m-2"><%= @bpm %></div>
+    <button class="button is-column-one-quarter m-2" phx-click="inc_bpm">+</button>
+    <button class="button is-column-one-quarter m-2" phx-click="dec_bpm">-</button>
   </div>
 
-
-  <div>
-    <div>Steps</div>
+  <div class="is-flex is-justify-content-center">
+    <%= if @play do %>
+    <button class="button is-small is-column-one-third" phx-click="play">Play</button>
+    <button class="button is-small is-column-one-third" phx-click="stop">Stop</button>
+  <% else %>
+    <button class="button is-small is-column-one-third" phx-click="play">Play</button>
+    <button class="button is-small is-column-one-third" phx-click="stop">Stop</button>
+    <% end %>
+    <button class="button is-small is-column-one-third" phx-click="reset">Reset</button>
+  </div>
+  <div class="is-flex is-justify-content-center">
     <div>
       <%= for opt <- @step_opts do %>
         <%= if opt == @selected_step_opt do %>
-          <button class="bg-green-400"><%= opt %></button>
+          <button class="button"><%= opt %></button>
         <% else %>
-          <button class="bg-orange-400" phx-click="select_step_opt" phx-value-opt="<%= opt %>"><%= opt %></button>
+          <button class="button" phx-click="select_step_opt" phx-value-opt="<%= opt %>"><%= opt %></button>
         <% end %>
       <% end %>
     </div>
   </div>
+  <div class="box">
+  <table class="table is-completely-borderless is-fullwidth">
+    <tbody>
+  <%= for instrument <- @instruments do %>
+    <div class="">
+      <tr><%= instrument %></tr>
+      <%= for id <- @steps do %>
+        <%= if id == @active_step do %>
+          <tr><button class="button is-normal m-1" phx-click="subt_step" phx-value-id="<%= id %>" class=""><%=id %></button></tr>
+        <% else %>
+          <tr><button class="button m-1 is-small" phx-click="add_step" phx-value-id="<%= id %>" class=""><%=id %></button></tr>
+          <% end %>
+      <% end %>
+    </div>
+  <% end %>
+    </tbody>
+  </table>
+  </div>
 </div>
 
-<div class="grid grid-cols-4 gap-1 leading-8">
-  <%= for id <- @steps do %>
-    <%= if id in @selected_steps do %>
-      <div phx-click="subt_step" phx-value-id="<%= id %>" class=bg-green-400 hover:bg-purple-700 hover:border-green-400 border-2 border-black-600 focus:ring-2 w-8"><%=id %></div>
-    <% else %>
-      <div phx-click="add_step" phx-value-id="<%= id %>" class=bg-black hover:bg-purple-700 hover:border-green-400 border-2 border-black-600 focus:ring-2 w-8"><%=id %></div>
-      <% end %>
-  <% end %>
-</div>

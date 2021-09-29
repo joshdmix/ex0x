@@ -14,7 +14,7 @@ defmodule Ex0x.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Ex0x.PubSub},
       # Start the Endpoint (http/https)
-      Ex0xWeb.Endpoint,
+      Ex0xWeb.Endpoint
       # Start a worker by calling: Ex0x.Worker.start_link(arg)
       # {Ex0x.Worker, arg}
     ]
